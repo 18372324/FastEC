@@ -1,0 +1,6 @@
+include ':Aisingioro-ec'
+include ':Aisingioro-core'
+include ':Aisingioro-compiler'
+include ':Aisingioro-annotaion'
+include ':example'
+rootProject.name = "FastEC"
