@@ -1,10 +1,14 @@
 package com.example.aisingioro_core.net;
 
+import android.content.Context;
+
 import com.example.aisingioro_core.net.callback.IError;
 import com.example.aisingioro_core.net.callback.IFailure;
 import com.example.aisingioro_core.net.callback.IRequest;
 import com.example.aisingioro_core.net.callback.ISuccess;
 import com.example.aisingioro_core.net.callback.RequestCallback;
+import com.example.aisingioro_core.ui.AisingioroLoader;
+import com.example.aisingioro_core.ui.LoaderStyle;
 
 import java.util.Map;
 
@@ -20,6 +24,9 @@ public class RestClient {
     private final IError IERROR;
     private final IFailure IFAILURE;
     private final RequestBody BODY;
+    private final LoaderStyle LOADER_STYLE;
+    private final Context CONTEXT;
+
 
     public RestClient(String _URL,
                       Map<String, Object> params,
@@ -27,7 +34,9 @@ public class RestClient {
                       ISuccess ISUCCESS,
                       IError IERROR,
                       IFailure IFAILURE,
-                      RequestBody BODY) {
+                      RequestBody BODY,
+                      LoaderStyle LOADER_STYLE,
+                      Context CONTEXT) {
         this._URL = _URL;
         this.PARAMS.putAll(params);
         this.IREQUEST = IREQUEST;
@@ -35,6 +44,8 @@ public class RestClient {
         this.IERROR = IERROR;
         this.IFAILURE = IFAILURE;
         this.BODY = BODY;
+        this.LOADER_STYLE = LOADER_STYLE;
+        this.CONTEXT = CONTEXT;
     }
 
     public static RestClientBuilder builder(){
@@ -46,6 +57,9 @@ public class RestClient {
         Call<String> call = null;
         if(IREQUEST != null ){
             IREQUEST.onRequestStart();
+        }
+        if(LOADER_STYLE != null){
+            AisingioroLoader.showLoading(CONTEXT, LOADER_STYLE);
         }
         switch (method){
             case GET:
@@ -74,7 +88,8 @@ public class RestClient {
                 IREQUEST,
                 ISUCCESS,
                 IERROR,
-                IFAILURE
+                IFAILURE,
+                LOADER_STYLE
         );
     }
 
