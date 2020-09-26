@@ -11,7 +11,7 @@ public final class Aisingioro {
         return Configurator.getInstance();
     }
 
-    private static HashMap<String, Object> getConfigurations(){
+    public static HashMap<String, Object> getConfigurations(){
         return Configurator.getInstance().getAisingioroConfigs();
     }
 
